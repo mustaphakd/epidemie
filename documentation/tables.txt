@@ -1,0 +1,112 @@
+CREATE TABLE user (
+	id serial NOT NULL PRIMARY KEY,
+	email VARCHAR (100),
+	password VARCHAR (100),
+	created_at TIMESTAMP 
+);
+CREATE TABLE public."acl"
+(
+    id serial NOT NULL,
+	parent_id VARCHAR(100),
+	date_created DATE ,
+	security_acl TEXT ,
+    PRIMARY KEY (id)
+)
+
+CREATE TABLE infections (
+	id serial NOT NULL PRIMARY KEY,
+	name VARCHAR (100) NOT NULL,
+	created_at DATE NOT NULL
+);
+
+ALTER TABLE "infections"
+    OWNER to epidemie;
+	
+CREATE TABLE nodes (
+	id serial NOT NULL PRIMARY KEY,
+	ancestors_id TEXT[],
+	geojson_id VARCHAR(100),
+	name VARCHAR (100) NOT NULL,
+	node_kind VARCHAR(50) NOT NULL
+);
+
+ALTER TABLE public."nodes"
+    OWNER to epidemie;
+
+CREATE TABLE profiles (
+	id serial NOT NULL PRIMARY KEY,
+	user_id INTEGER  REFERENCES users(id),
+	occupation VARCHAR(50),
+	first_name VARCHAR (100),
+	last_name VARCHAR (100),
+	birth DATE,
+	gender VARCHAR (10) NOT NULL,
+	marital_status VARCHAR (10)
+);
+
+ALTER TABLE public."profiles"
+    OWNER to epidemie;
+
+CREATE TABLE user_infections (
+	id serial NOT NULL PRIMARY KEY,
+	user_id INTEGER NOT NULL REFERENCES users(id),
+	infection_id INTEGER NOT NULL REFERENCES infections(id),
+	initial_detection TIMESTAMP,  --'YYYY-MM-DD H:M:S-ms'
+	healed TIMESTAMP
+);
+
+ALTER TABLE public."user_infections"
+    OWNER to epidemie;
+
+CREATE TABLE treatments (
+	id serial NOT NULL PRIMARY KEY,
+	user_infection_id INTEGER NOT NULL REFERENCES user_infections(id),
+	infection_id INTEGER NOT NULL REFERENCES infections(id),
+	start_date DATE NOT NULL,
+	start_time TIME NOT NULL,
+	end_date DATE,
+	end_time TIME,
+	healed bool,
+	description TEXT
+);
+
+
+ALTER TABLE public."treatments"
+    OWNER to epidemie;
+	
+CREATE TABLE observations (
+	id serial NOT NULL PRIMARY KEY,
+	treatment_id INTEGER NOT NULL REFERENCES treatments(id),
+	date DATE NOT NULL,
+	time TIME NOT NULL,
+	description TEXT NOT NULL
+);
+
+
+ALTER TABLE public."observations"
+    OWNER to epidemie;
+
+CREATE TABLE physical_contacts (
+	id serial NOT NULL PRIMARY KEY,
+	user_id INTEGER NOT NULL REFERENCES users(id),
+	coordinate VARCHAR(100),
+	date DATE,
+	time TIME,
+	contact_type VARCHAR(50)
+);
+
+
+ALTER TABLE public."physical_contacts"
+    OWNER to epidemie;
+	
+	CREATE TABLE geo_nodes (
+	id serial NOT NULL PRIMARY KEY,
+	parent_id INTEGER REFERENCES geo_nodes(id),
+	name VARCHAR (100),
+	geometry GEOMETRY NOT NULL,
+	iso_code VARCHAR(3),
+	region VARCHAR(30)
+);
+
+ALTER TABLE public."geo_nodes"
+    OWNER to epidemie;
