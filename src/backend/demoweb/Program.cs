@@ -7,20 +7,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Backend.Web
+namespace demoweb
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args)
-                .ConfigureLogging((hostingContext, logging) =>
-                {
-                    //logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddConsole();
-                    logging.AddDebug();
-                })
-                .Build().Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

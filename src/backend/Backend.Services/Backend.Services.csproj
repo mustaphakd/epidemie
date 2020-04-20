@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
@@ -8,6 +8,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Backend.Core\Backend.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Apis\" />
+    <Folder Include="Configurations\" />
+    <Folder Include="Features\" />
   </ItemGroup>
 
   <PropertyGroup>
