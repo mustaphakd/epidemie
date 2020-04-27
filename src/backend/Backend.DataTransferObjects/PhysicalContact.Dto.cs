@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Backend.Model
+namespace Backend.DataTransferObjects
 {
     public class PhysicalContact
     {
-        public String Id { get; set; }
-        public String UserId { get; set; }
+        public string UserId { get; set; }
         public DateTime DateTime { get; set; }
-
-        public double Longitude { get; set; }
-        public double Latitude { get; set; }
+        public string Longiture { get; set; }
+        public string Latitude { get; set; }
         public Core.Types.PhysicalContacts Contacts { get; set; }
     }
 }

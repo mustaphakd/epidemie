@@ -19,7 +19,12 @@ namespace Backend.Helpers
 
         }
 
-        public static void CallerLog<T>(ILogger<T> logger, LoggerExecutionPositions executioningPosition, string message = null, [CallerMemberName] string callerName = null)
+        public static void CallerLog<T>(
+            ILogger<T> logger,
+            LoggerExecutionPositions executioningPosition,
+            string message = null,
+            LogLevel logLevel = LogLevel.Debug,
+            [CallerMemberName] string callerName = null)
         {
             var messageBuilder = new StringBuilder();
 
@@ -48,7 +53,28 @@ namespace Backend.Helpers
             }
 
             var builderMessage = messageBuilder.ToString();
-            logger.LogInformation(builderMessage);
+
+            switch(logLevel)
+            {
+                case LogLevel.None:
+                    break;
+                case LogLevel.Warning:
+                    logger.LogWarning(builderMessage);
+                    break;
+                case LogLevel.Information:
+                    logger.LogInformation(builderMessage);
+                    break;
+                case LogLevel.Critical:
+                    logger.LogCritical(builderMessage);
+                    break;
+                case LogLevel.Error:
+                    logger.LogError(builderMessage);
+                    break;
+                default: //defaults to debug
+                    logger.LogDebug(builderMessage);
+                    //logger.LogInformation(builderMessage);
+                    break;
+            }
         }
     }
 }
