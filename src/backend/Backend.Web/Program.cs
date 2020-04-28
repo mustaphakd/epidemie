@@ -16,9 +16,9 @@ namespace Backend.Web
             CreateHostBuilder(args)
                 .ConfigureLogging((hostingContext, logging) =>
                 {
-                    //logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddConsole();
-                    logging.AddDebug();
+                    logging.AddConsole()
+                            .AddDebug()
+                            .SetMinimumLevel(LogLevel.Debug);
                 })
                 .Build().Run();
         }

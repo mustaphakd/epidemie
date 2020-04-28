@@ -1,0 +1,157 @@
+//https://edwardsamuel.wordpress.com/2015/07/15/convert-text-json-to-jsonjsonb-data-type-in-postgresql/
+ALTER TABLE acls
+ALTER COLUMN security_acl TYPE JSONB USING security_acl::JSONB
+https://www.linuxtopia.org/online_books/database_guides/Practical_PostgreSQL_database/PostgreSQL_x19832_003.htm
+https://www.postgresql.org/docs/11/sql-createprocedure.html
+
+https://postgis.net/docs/AddGeometryColumn.html
+---------- changed contact tracking coordinate to point:
+ALTER TABLE physical_contacts
+DROP COLUMN IF EXISTS  coordinate;
+
+
+SELECT AddGeometryColumn ('public','physical_contacts','coordinate',4326,'POINT',2);
+
+INSERT INTO tab_spatial(the_geom)
+VALUES(ST_GeomFromText('POINT(-71.060316 48.432044)', 4326));
+
+INSERT INTO tab_spatial(the_geom)
+VALUES(ST_GeomFromText('LINESTRING(0 0, 1 1, 2 1, 2 2)', 4326));
+
+---------------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE create_user(IN email_val users.email%TYPE,IN password_val users.password%TYPE,INOUT new_user_id users.id%TYPE, INOUT error_message VARCHAR(100) = NULL)
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+	created_val TIMESTAMP := now();
+BEGIN
+
+	IF EXISTS(SELECT id
+              FROM users t
+             WHERE t.email = email_val)
+  THEN
+     error_message := 'email ' || email_val || ' already exist';
+  ELSE
+  	INSERT INTO users (email, password, created)
+	VALUES
+	--https://medium.com/@jianshi_94445/encrypt-decrypt-your-data-using-native-postgres-functions-with-sequelize-js-c04948d96833
+		(email_val, PGP_SYM_ENCRYPT(password_val,'maoik'), created_val);
+		
+	SELECT INTO new_user_id id FROM users WHERE email = email_val;
+  END IF;
+END;
+$$;
+-------------------------------------------------------------------------------
+--- is error message is null and user_id not set, then password is invalid
+CREATE OR REPLACE PROCEDURE validate_user(IN email_val users.email%TYPE,IN password_val users.password%TYPE,INOUT user_id_val users.id%TYPE = NULL, INOUT error_message VARCHAR(100) = NULL)
+LANGUAGE plpgsql    
+AS $$
+BEGIN
+	IF EXISTS(SELECT id
+              FROM users t
+             WHERE t.email = email_val)
+  THEN
+	SELECT INTO user_id_val id 
+	FROM users 
+	WHERE email = email_val
+	--https://medium.com/@jianshi_94445/encrypt-decrypt-your-data-using-native-postgres-functions-with-sequelize-js-c04948d96833
+	AND PGP_SYM_DECRYPT(password::bytea, 'maoik') = password_val;
+  ELSE
+     error_message := 'email ' || email_val || ' does not exist';
+	 return;	
+  END IF;
+END;
+$$;
+---------------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE create_user_profile
+(IN user_id_val profiles.user_id%TYPE,IN occupation_val profiles.occupation%TYPE,
+ IN first_name_val profiles.first_name%TYPE,IN last_name_val profiles.last_name%TYPE,
+ IN birth_val profiles.birth%TYPE,IN gender_val profiles.gender%TYPE,
+ IN marital_status_val profiles.marital_status%TYPE,
+ INOUT profile_id_val profiles.id%TYPE = NULL, INOUT error_message VARCHAR(100) = NULL)
+LANGUAGE plpgsql    
+AS $$
+BEGIN
+	INSERT INTO profiles (user_id, occupation, first_name, last_name, birth, gender, marital_status)
+	VALUES
+		(user_id_val, occupation_val, first_name_val, last_name_val, birth_val, gender_val, marital_status_val)
+	RETURNING id INTO profile_id_val;
+	
+	IF profile_id_val IS NULL  THEN
+		error_message := 'Failed to create user profile.';
+	END IF;
+END;
+$$;
+
+-----------------------------------------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE track_contact
+(IN user_id_val physical_contacts.user_id%TYPE,IN date_val physical_contacts.date%TYPE,
+ IN time_val physical_contacts.time%TYPE,IN contact_type_val physical_contacts.contact_type%TYPE,
+ IN coordinate_val physical_contacts.coordinate%TYPE,
+ INOUT new_physical_contact_id_val physical_contacts.id%TYPE, INOUT error_message VARCHAR(100) = NULL)
+LANGUAGE plpgsql    
+AS $$
+BEGIN
+	
+	INSERT INTO physical_contacts (user_id, date, time, contact_type, coordinate)
+	VALUES
+		(user_id_val, date_val, time_val, contact_type_val, coordinate_val)
+	RETURNING id INTO new_physical_contact_id_val;
+	
+	IF new_physical_contact_id_val IS NULL  THEN
+		error_message := 'Failed to add new tracked contact.';
+		RETURN;
+	END IF;
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE update_user_profile
+(IN user_id_val profiles.user_id%TYPE,IN occupation_val profiles.occupation%TYPE,
+ IN first_name_val profiles.first_name%TYPE,IN last_name_val profiles.last_name%TYPE,
+ IN birth_val profiles.birth%TYPE,IN gender_val profiles.gender%TYPE,
+ IN marital_status_val profiles.marital_status%TYPE, INOUT error_message VARCHAR(100) = NULL)
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+ 	profile_id profiles.id%TYPE;
+BEGIN
+	UPDATE profiles 
+	SET (occupation, first_name, last_name, birth, gender, marital_status)
+	 = (occupation_val, first_name_val, last_name_val, birth_val, gender_val, marital_status_val)
+	WHERE user_id = user_id_val
+	RETURNING id INTO profile_id;
+	
+	IF NOT FOUND  THEN
+		error_message := 'Failed to update user profile.';
+		return;
+	END IF;
+END;
+$$;
+
+--------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE track_contact
+(IN user_id_val physical_contacts.user_id%TYPE,IN date_val physical_contacts.date%TYPE,
+ IN time_val physical_contacts.time%TYPE,IN contact_type_val physical_contacts.contact_type%TYPE,
+ IN coordinate_val physical_contacts.coordinate%TYPE,
+ INOUT new_physical_contact_id_val physical_contacts.id%TYPE, INOUT error_message VARCHAR(100) = NULL)
+LANGUAGE plpgsql    
+AS $$
+BEGIN
+
+
+--INSERT INTO tab_spatial(the_geom)
+--VALUES(ST_GeomFromText('POINT(-71.060316 48.432044)', 4326));
+	
+	INSERT INTO physical_contacts (user_id, date, time, contact_type, coordinate)
+	VALUES
+		(user_id_val, date_val, time_val, contact_type_val, coordinate_val)
+	RETURNING id INTO new_physical_contact_id_val;
+	
+	IF new_physical_contact_id_val IS NULL  THEN
+		error_message := 'Failed to add new tracked contact.';
+		RETURN;
+	END IF;
+	COMMIT;
+END;
+$$;

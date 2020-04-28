@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Services.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,10 +28,10 @@ namespace Backend.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-/*
-            this.loggerFactory = new LoggerFactory();
-            services.AddSingleton<ILoggerFactory>((srvProvider) => this.loggerFactory);
-            services.AddLogging();*/
+            /*
+                        this.loggerFactory = new LoggerFactory();
+                        services.AddSingleton<ILoggerFactory>((srvProvider) => this.loggerFactory);
+                        services.AddLogging();*/
             /*
             services.AddCors(options =>
             {
@@ -42,8 +43,14 @@ namespace Backend.Web
                     builder.AllowCredentials();
                 });
             });*/
-            services.AddControllers();
+            services.AddBackendServices(Configuration);
+            //services.AddControllers();
             //services.AddControllersWithViews();
+            // After launching app, you can navigate to xxxx to view backend api accessing to mobile and front ends
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo{ Title = "Mokolo Feed Api", Version = "V1" });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,13 +59,14 @@ namespace Backend.Web
             if (env.IsDevelopment())
             {
                 logger.LogInformation("In Development environment");
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
                 //app.UseDatabaseErrorPage();
+                app.UseExceptionHandler("/Error");
             }
             else
             {
                 logger.LogInformation("In Production environment");
-                //app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
 
@@ -74,7 +82,17 @@ namespace Backend.Web
             // cors
             app.UseCors();
 
-            // app.ConfigureFeedServices(env);
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Makolo apis V1");
+            });
+
+            app.ConfigureBackendServices(env);
 
             //app.UseHttpsRedirection();
             app.UseDefaultFiles();
@@ -106,6 +124,8 @@ namespace Backend.Web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                  */
             });
+
+            logger.LogInformation("Configuration complete");
         }
     }
 }

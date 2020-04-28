@@ -1,23 +1,37 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.3" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.3" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.5.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="10.3.2" />
+    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.3.2" />
+    <PackageReference Include="HotChocolate.AspNetCore.Voyager" Version="10.3.2" />
+    <PackageReference Include="HotChocolate.Types.Filters" Version="10.3.2" />
+    <PackageReference Include="HotChocolate.Types.Sorting" Version="10.3.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Backend.Core\Backend.Core.csproj" />
+    <ProjectReference Include="..\Backend.DataTransferObjects\Backend.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\Backend.Helpers\Backend.Helpers.csproj" />
+    <ProjectReference Include="..\Backend.Model\Backend.Model.csproj" />
+    <ProjectReference Include="..\Backend.Repository\Backend.Repository.csproj" />
+    <ProjectReference Include="..\Backend.Security\Backend.Security.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Apis\" />
-    <Folder Include="Configurations\" />
-    <Folder Include="Features\" />
+    <Folder Include="GraphQL\" />
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
 </Project>
