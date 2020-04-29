@@ -17,9 +17,12 @@
   </ItemGroup>
 
 <ItemGroup>
+<PackageReference Include="Plugin.Multilingual" Version="1.0.2" />
+<PackageReference Include="Refit.Insane.PowerPack" Version="1.1.1" />
 <PackageReference Include="SkiaSharp.Extended" Version="1.60.0" />
 <PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
 <PackageReference Include="SkiaSharp.Views.Forms" Version="1.60.0" />
+<PackageReference Include="Xamarin.Essentials" Version="1.3.0" />
 <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
 <PackageReference Include="Syncfusion.Xamarin.SfTreeView" Version="18.1.0.42" />
 <PackageReference Include="Syncfusion.Xamarin.SfTreeMap" Version="18.1.0.42" />
