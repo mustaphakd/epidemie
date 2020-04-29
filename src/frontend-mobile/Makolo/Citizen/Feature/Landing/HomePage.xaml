@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<framework:BaseContentPage
+    x:Class="Citizen.Feature.Landing.HomePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:core="clr-namespace:Citizen.Core"
+    xmlns:extensions="clr-namespace:Citizen.Extensions"
+    xmlns:fontHelpers="clr-namespace:Citizen.Helpers"
+    xmlns:framework="clr-namespace:Citizen.Framework"
+    xmlns:i18n="clr-namespace:Citizen.Extensions"
+    xmlns:local="clr-namespace:Citizen.Feature.Landing"
+    xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+    x:DataType="local:HomeViewModel"
+    x:TypeArguments="local:HomeViewModel"
+    
+    Shell.NavBarIsVisible="False">
+    <!--BackgroundImageSource="{extensions:ImageResource Source='Citizen.Images.background.png'}"
+        Dark to Primary
+        AF0038 B4033C BA0640 C00944 C50C48 CB0F4C D11250 D61554 DC1858 E21B5C E81E61
+        
+        PrimARY to light
+        E81E61 EA2465 EC2B6A EE316E F13873 F33F77 F5457C F84C80 FA5285 FC5989 FF608E
+    -->
+    <framework:BaseContentPage.Resources>
+        <Style x:Key="iconButton" TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource MaterialFontFamily}" />
+            <Setter Property="Margin" Value="0, 0,0,0" />
+            <Setter Property="FontSize" Value="Header" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+            <Setter Property="TextColor" Value="{StaticResource AccentLight}" />
+            <Setter Property="VerticalOptions" Value="Start" />
+        </Style>
+        <Style x:Key="buttonText" TargetType="Label">
+            <Setter Property="Margin" Value="0, 0, 0,0" />
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+            <Setter Property="TextColor" Value="{StaticResource DefaultPrimaryTextColor}" />
+            <Setter Property="VerticalTextAlignment" Value="Start" />
+        </Style>
+
+        <Style x:Key="container" TargetType="StackLayout">
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+        </Style>
+    </framework:BaseContentPage.Resources>
+    <ContentPage.Content>
+        <Grid Padding="0,5,0,10">
+            <Grid.Margin>
+                <Thickness
+                    Bottom="{StaticResource DefaultMargin}"
+                    Left="{StaticResource 0.25xDefaultMargin}"
+                    Right="{StaticResource 0.25xDefaultMargin}" />
+            </Grid.Margin>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="3*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="105*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="105*" />
+            </Grid.ColumnDefinitions>
+            <!--
+                BackgroundColor="{StaticResource PrimaryDark}"
+            -->
+
+            <skia:SKCanvasView
+                x:Name="canvasView"
+                Grid.RowSpan="4"
+                Grid.ColumnSpan="3"
+                PaintSurface="OncanvasViewPaintSurface" />
+
+            <StackLayout
+                Grid.ColumnSpan="3"
+                Margin="0,0,0,-5"
+                HorizontalOptions="Center"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
+                <!--
+                    BackgroundColor="Green"
+                -->
+                <Label
+                    FontFamily="{StaticResource FontAwesomeSolid}"
+                    FontSize="Large"
+                    Text="{x:Static fontHelpers:FontAwesomeIconFont.Home}"
+                    TextColor="{StaticResource DefaultPrimaryTextColor}"
+                    VerticalOptions="Center" />
+                <Label
+                    FontSize="Large"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="{i18n:Translate LandingTitle}"
+                    TextColor="{StaticResource DefaultPrimaryTextColor}"
+                    VerticalOptions="Center" />
+            </StackLayout>
+
+            <StackLayout
+                Grid.Row="1"
+                Grid.Column="0"
+                Style="{StaticResource container}">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding TapCommand}" CommandParameter="{x:Static core:Constants.Analytics}" />
+                </StackLayout.GestureRecognizers>
+                <Label Style="{StaticResource iconButton}" Text="{x:Static fontHelpers:MaterialIconFont.ChartAreaspline}" />
+                <Label Style="{StaticResource buttonText}" Text="{i18n:Translate LandingAnalyticsTitle}" />
+            </StackLayout>
+
+            <BoxView
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="0,5,0,16"
+                HeightRequest="50"
+                WidthRequest=".015"
+                Color="#FFEFF3" />
+
+            <StackLayout
+                Grid.Row="1"
+                Grid.Column="2"
+                Style="{StaticResource container}">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding TapCommand}" CommandParameter="{x:Static core:Constants.Products}" />
+                </StackLayout.GestureRecognizers>
+                <Label Style="{StaticResource iconButton}" Text="{x:Static fontHelpers:MaterialIconFont.BarcodeScan}" />
+                <Label Style="{StaticResource buttonText}" Text="{i18n:Translate LandingProductTitle}" />
+            </StackLayout>
+
+
+            <StackLayout
+                Grid.Row="3"
+                Grid.Column="0"
+                Style="{StaticResource container}">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding TapCommand}" CommandParameter="{x:Static core:Constants.Shop}" />
+                </StackLayout.GestureRecognizers>
+                <Label Style="{StaticResource iconButton}" Text="{x:Static fontHelpers:MaterialIconFont.CartPlus}" />
+                <Label Style="{StaticResource buttonText}" Text="{i18n:Translate LandingShopTitle}" />
+            </StackLayout>
+
+            <BoxView
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="0,10,0,10"
+                HeightRequest="50"
+                WidthRequest=".015"
+                Color="#FFEFF3" />
+
+            <StackLayout
+                Grid.Row="3"
+                Grid.Column="2"
+                Style="{StaticResource container}">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding TapCommand}" CommandParameter="{x:Static core:Constants.AddressBooks}" />
+                </StackLayout.GestureRecognizers>
+                <Label Style="{StaticResource iconButton}" Text="{x:Static fontHelpers:MaterialIconFont.AccountBadgeHorizontalOutline}" />
+                <Label Style="{StaticResource buttonText}" Text="{i18n:Translate LandingAddressBookTitle}" />
+            </StackLayout>
+
+            <BoxView
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="10,0,10,0"
+                HeightRequest=".015"
+                WidthRequest="50"
+                Color="#FFEFF3" />
+
+            <BoxView
+                Grid.Row="2"
+                Grid.Column="2"
+                Margin="10,0,10,0"
+                HeightRequest=".015"
+                WidthRequest="50"
+                Color="#FFEFF3" />
+        </Grid>
+
+    </ContentPage.Content>
+</framework:BaseContentPage>

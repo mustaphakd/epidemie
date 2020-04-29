@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<framework:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:framework="clr-namespace:Citizen.Framework"
+             xmlns:settingsFeature="clr-namespace:Citizen.Feature.Settings"
+             x:TypeArguments="settingsFeature:SettingsViewModel"
+             x:Class="Citizen.Feature.Settings.SettingsPage">
+    <ContentView>
+        <StackLayout Spacing="20" Padding="15">
+            <Label Text="Server Endpoint" FontSize="Medium" />
+            <Entry Text="{Binding ServerEndpoint,UpdateSourceEventName=Completed}" FontSize="Small" />
+            <Label Text="SomeText" FontSize="Medium" />
+            <Editor Text="{Binding SomeText}" FontSize="Small" Margin="0" />
+                <Button Text="Cancel" Command="{Binding CancelCommand}" />
+                <Button Text="Save" Command="{Binding SaveCommand}" />
+        </StackLayout>
+    </ContentView>
+</framework:BaseContentPage>

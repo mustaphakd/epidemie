@@ -11,12 +11,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\..\backend\Backend.DataTransferObjects\AuthModel.Dto.cs" Link="Models\Personal\AuthModel.Dto.cs" />
+    <Compile Include="..\..\..\backend\Backend.DataTransferObjects\PhysicalContact.Dto.cs" Link="Models\Personal\PhysicalContact.Dto.cs" />
+    <Compile Include="..\..\..\backend\Backend.DataTransferObjects\UserLogin.Dto.cs" Link="Models\Personal\UserLogin.Dto.cs" />
+    <Compile Include="..\..\..\backend\Backend.DataTransferObjects\UserRegistration.Dto.cs" Link="Models\Personal\UserRegistration.Dto.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Data\deliverytracking.json" />
     <EmbeddedResource Include="Data\notification.json" />
     <EmbeddedResource Include="Images\PaymentFailed.svg" />
   </ItemGroup>
 
 <ItemGroup>
+<PackageReference Include="CSharp.OperationResult" Version="0.1.6" />
+<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.3" />
 <PackageReference Include="Plugin.Multilingual" Version="1.0.2" />
 <PackageReference Include="Refit.Insane.PowerPack" Version="1.1.1" />
 <PackageReference Include="SkiaSharp.Extended" Version="1.60.0" />
@@ -136,6 +145,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\AppResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Themes\LightTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -172,5 +184,11 @@
     <EmbeddedResource Update="Views\Tracking\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Feature\" />
+    <Folder Include="Services\Dto\" />
+    <Folder Include="Services\Impl\" />
   </ItemGroup>
 </Project>

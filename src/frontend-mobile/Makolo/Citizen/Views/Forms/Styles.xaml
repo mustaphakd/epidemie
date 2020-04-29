@@ -27,7 +27,7 @@
     <x:String x:Key="Google">&#xe74d;</x:String>
     <x:String x:Key="Twitter">&#xe749;</x:String>
 
-    <!--  Common style for content pages  -->
+    <!--  Common style for content pages  
     <Style x:Key="ContentPageStyle" TargetType="ContentPage">
         <Setter Property="BackgroundImageSource">
             <OnPlatform
@@ -35,7 +35,7 @@
                 Android="LoginBackground.png"
                 WinPhone="LoginBackground.png" />
         </Setter>
-    </Style>
+    </Style>-->
 
     <!--  Common style for labels  -->
     <Style x:Key="LabelStyle" TargetType="Label">

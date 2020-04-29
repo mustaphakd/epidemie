@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--  Currently it's needed to pass the entire qualified name as x:Class  -->
+<Shell
+    x:Class="Citizen.Feature.Shell.TheShell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Citizen"
              xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
@@ -52,7 +55,42 @@
 			xmlns:sfTimePicker="clr-namespace:Syncfusion.XForms.Pickers;assembly=Syncfusion.SfPicker.XForms"
 			xmlns:sfDatePicker="clr-namespace:Syncfusion.XForms.Pickers;assembly=Syncfusion.SfPicker.XForms"
 			xmlns:sfChat="clr-namespace:Syncfusion.XForms.Chat;assembly=Syncfusion.SfChat.XForms"
-			x:Class="Citizen.MainPage">
-    
+			xmlns:core="clr-namespace:Citizen.Core"
+			xmlns:home="clr-namespace:Citizen.Feature.Landing"
+			xmlns:i18n="clr-namespace:Citizen.Extensions"
+			x:Name="theShell"
+			Title="Makolo"
+			FlyoutBehavior="Flyout">
 
+    <Shell.Resources>
+        <ResourceDictionary>
+
+            <Style TargetType="ShellItem"> <!--
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource PrimaryDarkColor}" />
+                <Setter Property="Shell.ForegroundColor" Value="{StaticResource DefaultPrimaryTextColor}" />
+                <Setter Property="Shell.TitleColor" Value="{StaticResource DefaultPrimaryTextColor}" /> 
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource PrimaryLightColor}" />-->
+                <!--  NavigationPrimary  
+
+                <Setter Property="Shell.TabBarForegroundColor" Value="White" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarTitleColor" Value="White" />-->
+            </Style>
+
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <ShellItem Route="{Static core:Routes.Home}">
+        <ShellSection Title="Home">
+            <ShellContent ContentTemplate="{DataTemplate home:HomePage}" />
+        </ShellSection>
+    </ShellItem>
+<!--
+    <ShellItem Title="{i18n:Translate LandingProductTitle}" Route="{Static core:Routes.Products}">
+        <ShellSection>
+            <ShellContent ContentTemplate="{DataTemplate products:Landing}" />
+        </ShellSection>
+    </ShellItem> -->
 </Shell>
