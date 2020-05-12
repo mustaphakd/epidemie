@@ -32,8 +32,6 @@ namespace Backend.Services.Apis
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<StatusCodeResult> RegisterUser([FromBody]UserRegistration model)
         {
-            //System.Diagnostics.Debugger.Launch();
-            //System.Diagnostics.Debugger.Break();
             _logger.LogDebug($"{nameof(RegisterUser)}() - Start - Model : {model}", model);
             await securityService_.RegisterUser(model);
             _logger.LogDebug($"{nameof(RegisterUser)}() - End ");

@@ -1,4 +1,5 @@
 ﻿
+using Backend.DataTransferObjects;
 using Backend.Model;
 using Backend.Repository;
 using Backend.Security;
@@ -6,8 +7,13 @@ using Backend.Services.Configurations;
 using Backend.Services.Core;
 using Backend.Services.Features.ContactTracking;
 using Backend.Services.Features.Security;
+using Backend.Services.GraphQL.Types;
 using Backend.Services.Security;
+using HotChocolate;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Voyager;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -25,7 +31,7 @@ namespace Backend.Services.DependencyInjection
         public static SecurityBuildersAccessor AddBackendServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddBackendRepositories(configuration); // <--> identityBUilder.AddEntityFrameworkStores
-
+            services.AddGrapQlTypes(configuration);
 
             var identityBuilder = services
                 .AddIdentity<User, IdentityRole>(options =>
@@ -64,13 +70,13 @@ namespace Backend.Services.DependencyInjection
             {
                 //CookieAuthenticationDefaults.AuthenticationScheme; throws InvalidOperationException: No authentication handler is registered for the scheme 'Identity.Application'. The registered schemes are: Cookies. Did you forget to call AddAuthentication().Add[SomeAuthHandler]("Identity.Application",...)?
                 // IdentityConstants.ApplicationScheme;
-                /*
-                authenticationOptions.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                authenticationOptions.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                authenticationOptions.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                authenticationOptions.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                */authenticationOptions.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                //authenticationOptions.DefaultForbidScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+                authenticationOptions.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+                authenticationOptions.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
+                authenticationOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                authenticationOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                authenticationOptions.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                authenticationOptions.DefaultForbidScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(bearerOptions =>
             {
@@ -110,6 +116,34 @@ namespace Backend.Services.DependencyInjection
                 //dbContext.Seed(scope.ServiceProvider);
             }
             return app;
+        }
+        public static IApplicationBuilder ConfigurRemainingeBackendServices(this IApplicationBuilder app, IWebHostEnvironment env)
+        {
+
+            app
+                .UseWebSockets()
+                .UseGraphQL("/graphql")
+                .UsePlayground("/graphql")
+                .UseVoyager("/graphql");
+            return app;
+        }
+
+        public static IServiceCollection AddGrapQlTypes(this IServiceCollection services, IConfiguration configuration)
+        {
+            // Add GraphQL Services
+            services.AddGraphQL(sp => SchemaBuilder.New()
+                .AddServices(sp)
+                .AddQueryType<QueryType>()
+                .AddMutationType<MutationType>()
+                //.AddSubscriptionType(d => d.Name("Subscription"))
+                //.AddType<CharacterQueries>()
+                //.AddType<ReviewQueries>()
+                .AddType<PhysicalContactType>()
+                //.AddType<ReviewSubscriptions>()
+                .AddType<SynchronizationToken>()
+                .Create());
+
+            return services;
         }
 
 

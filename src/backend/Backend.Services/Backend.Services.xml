@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Backend.Services</name>
+    </assembly>
+    <members>
+        <member name="T:Backend.Services.Features.ContactTracking.ContactTrackingService">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Backend.Services.Features.ContactTracking.ContactTrackingService.#ctor(Backend.Repository.CommonCitizenRepository,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Logging.ILogger{Backend.Services.Features.ContactTracking.ContactTrackingService})">
+             <summary>
+            
+             </summary>
+             <param name="commonCitizenRepository"></param>
+             <param name="httpContextAccessor"></param>
+             <param name="logger"></param>
+        </member>
+        <member name="M:Backend.Services.Features.ContactTracking.ContactTrackingService.TrackContacts(System.Collections.Generic.IEnumerable{Backend.DataTransferObjects.PhysicalContact})">
+            <summary>
+            Allows Users to track contacts
+            </summary>
+            <param name="contacts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Services.GraphQL.Mutation.AddPhysicalContacts(System.Collections.Generic.IEnumerable{Backend.DataTransferObjects.PhysicalContact},Backend.Services.Features.ContactTracking.ContactTrackingService)">
+            <summary>
+            Mutate user list of Physical Contacts
+            </summary>
+            <param name="contacts">Realized contacts</param>
+            <param name="service">people contact service</param>
+            <returns>Synchronization tokens</returns>
+        </member>
+        <member name="M:Backend.Services.Security.AuthenticationService.AuthenticateAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            This method is really only of use during login operation.  authentication middle ware will auto login user using the correct schemehandler registered before even entering userLand.
+            </summary>
+            <param name="context"></param>
+            <param name="scheme"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

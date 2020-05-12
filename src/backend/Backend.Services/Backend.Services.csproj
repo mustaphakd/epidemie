@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
@@ -11,6 +11,7 @@
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.5.0" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="10.3.2" />
     <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.3.2" />
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="10.3.2" />
     <PackageReference Include="HotChocolate.AspNetCore.Voyager" Version="10.3.2" />
     <PackageReference Include="HotChocolate.Types.Filters" Version="10.3.2" />
     <PackageReference Include="HotChocolate.Types.Sorting" Version="10.3.2" />
@@ -25,13 +26,13 @@
     <ProjectReference Include="..\Backend.Security\Backend.Security.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="GraphQL\" />
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\S\epidemie\src\backend\Backend.Services\Backend.Services.xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>
