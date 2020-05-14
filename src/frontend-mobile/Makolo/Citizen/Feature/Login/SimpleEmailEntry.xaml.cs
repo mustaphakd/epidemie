@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
-namespace Citizen.Views.Forms
+namespace Citizen.Feature.Login
 {
     /// <summary>
     /// View used to show the email entry with validation status.

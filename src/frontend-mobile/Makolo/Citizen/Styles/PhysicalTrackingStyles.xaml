@@ -2,7 +2,7 @@
 <ResourceDictionary 
     xmlns="http://xamarin.com/schemas/2014/forms"  
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="Citizen.Views.Tracking.Styles"         
+    x:Class="Citizen.Styles.PhysicalTrackingStyles"         
     xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
     xmlns:converter="clr-namespace:Citizen.Converters"
     xmlns:gradient="clr-namespace:Syncfusion.XForms.Graphics;assembly=Syncfusion.Core.XForms">

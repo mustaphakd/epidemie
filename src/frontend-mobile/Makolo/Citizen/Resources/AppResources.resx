@@ -1,101 +1,252 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
-		Microsoft ResX Schema
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-		Version 1.3
-
-		The primary goals of this format is to allow a simple XML format 
-		that is mostly human readable. The generation and parsing of the 
-		various data types are done through the TypeConverter classes 
-		associated with the data types.
-
-		Example:
-
-		... ado.net/XML headers & schema ...
-		<resheader name="resmimetype">text/microsoft-resx</resheader>
-		<resheader name="version">1.3</resheader>
-		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-		<data name="Name1">this is my long string</data>
-		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-			[base64 mime encoded serialized .NET Framework object]
-		</data>
-		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-			[base64 mime encoded string representing a byte array form of the .NET Framework object]
-		</data>
-
-		There are any number of "resheader" rows that contain simple 
-		name/value pairs.
-
-		Each data row contains a name, and value. The row also contains a 
-		type or mimetype. Type corresponds to a .NET class that support 
-		text/value conversion through the TypeConverter architecture. 
-		Classes that don't support this are serialized and stored with the 
-		mimetype set.
-
-		The mimetype is used for serialized objects, and tells the 
-		ResXResourceReader how to depersist the object. This is currently not 
-		extensible. For a given mimetype the value must be set accordingly:
-
-		Note - application/x-microsoft.net.object.binary.base64 is the format 
-		that the ResXResourceWriter will generate, however the reader can 
-		read any of the formats listed below.
-
-		mimetype: application/x-microsoft.net.object.binary.base64
-		value   : The object must be serialized with 
-			: System.Serialization.Formatters.Binary.BinaryFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.soap.base64
-		value   : The object must be serialized with 
-			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.bytearray.base64
-		value   : The object must be serialized into a byte array 
-			: using a System.ComponentModel.TypeConverter
-			: and then encoded with base64 encoding.
-	-->
-	
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>1.3</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContactTracking" xml:space="preserve">
+    <value>Contact Tracking</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EnumMaritalDivorced" xml:space="preserve">
+    <value>Divorced</value>
+  </data>
+  <data name="EnumMaritalMarried" xml:space="preserve">
+    <value>Married</value>
+  </data>
+  <data name="EnumMaritalSingle" xml:space="preserve">
+    <value>Single</value>
+  </data>
+  <data name="EnumMaritaWidow" xml:space="preserve">
+    <value>Widow</value>
+  </data>
+  <data name="EnumPhysicalContact_City_Female" xml:space="preserve">
+    <value>City female</value>
+  </data>
+  <data name="EnumPhysicalContact_City_Male" xml:space="preserve">
+    <value>City male</value>
+  </data>
+  <data name="EnumPhysicalContact_Daughter" xml:space="preserve">
+    <value>Daughter</value>
+  </data>
+  <data name="EnumPhysicalContact_Family_Aunt" xml:space="preserve">
+    <value>Aunt</value>
+  </data>
+  <data name="EnumPhysicalContact_Family_Father" xml:space="preserve">
+    <value>Father</value>
+  </data>
+  <data name="EnumPhysicalContact_Family_GrandFather" xml:space="preserve">
+    <value>GrandFather</value>
+  </data>
+  <data name="EnumPhysicalContact_Family_GrandMother" xml:space="preserve">
+    <value>GrandMother</value>
+  </data>
+  <data name="EnumPhysicalContact_Family_Husband" xml:space="preserve">
+    <value>Husband</value>
+  </data>
+  <data name="EnumPhysicalContact_Family_Mother" xml:space="preserve">
+    <value>Mother</value>
+  </data>
+  <data name="EnumPhysicalContact_Family_Nephew" xml:space="preserve">
+    <value>Nephew</value>
+  </data>
+  <data name="EnumPhysicalContact_Family_Niece" xml:space="preserve">
+    <value>Niece</value>
+  </data>
+  <data name="EnumPhysicalContact_Family_Son" xml:space="preserve">
+    <value>Son</value>
+  </data>
+  <data name="EnumPhysicalContact_Family_Uncle" xml:space="preserve">
+    <value>Uncle</value>
+  </data>
+  <data name="EnumPhysicalContact_Family_Wife" xml:space="preserve">
+    <value>Wife</value>
+  </data>
+  <data name="EnumPhysicalContact_Family_worker" xml:space="preserve">
+    <value>Family worker</value>
+  </data>
+  <data name="EnumPhysicalContact_Friend_Female" xml:space="preserve">
+    <value>Friend female</value>
+  </data>
+  <data name="EnumPhysicalContact_Friend_Male" xml:space="preserve">
+    <value>Friend male</value>
+  </data>
+  <data name="EnumPhysicalContact_Neighbor_Female" xml:space="preserve">
+    <value>Neighbor female</value>
+  </data>
+  <data name="EnumPhysicalContact_Neighbor_Male" xml:space="preserve">
+    <value>Neighbor male</value>
+  </data>
+  <data name="GenderFemale" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="GenderMale" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginBtn" xml:space="preserve">
+    <value>LOG IN</value>
+  </data>
+  <data name="LoginFailure" xml:space="preserve">
+    <value>Log in attempt failed. Please try again later.</value>
+  </data>
+  <data name="Menu_largeButtons_ContactTracking" xml:space="preserve">
+    <value>CONTACT TRACKING</value>
+  </data>
+  <data name="Menu_largeButtons_Cowrie" xml:space="preserve">
+    <value>COWRIE</value>
+  </data>
+  <data name="Menu_largeButtons_Map" xml:space="preserve">
+    <value>MAP</value>
+  </data>
+  <data name="PlaceHolderValidEmail" xml:space="preserve">
+    <value>Please enter the valid e-mail</value>
+  </data>
+  <data name="QuickTopUp" xml:space="preserve">
+    <value>Quick Top Up</value>
+  </data>
+  <data name="RegisterBtn" xml:space="preserve">
+    <value>REGISTER ACCOUNT</value>
+  </data>
+  <data name="RegisterHdr" xml:space="preserve">
+    <value>Registration</value>
+  </data>
+  <data name="RegistratationSuccess" xml:space="preserve">
+    <value>Registration has been successfull. Please log in.</value>
+  </data>
+  <data name="RegistrationFailure" xml:space="preserve">
+    <value>Registration failed.  Please try again later.</value>
+  </data>
+  <data name="SelectBirthDate" xml:space="preserve">
+    <value>Please select birth date</value>
+  </data>
+  <data name="SelectContactType" xml:space="preserve">
+    <value>Please select contact type</value>
+  </data>
+  <data name="StayHomeSafe" xml:space="preserve">
+    <value>Stay Home, Stay Safe</value>
+  </data>
+  <data name="YouCanInCloseContactWith" xml:space="preserve">
+    <value>You were near :</value>
+  </data>
 </root>

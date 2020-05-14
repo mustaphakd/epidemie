@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ContentView
-    x:Class="Citizen.Views.Forms.SimpleEmailEntry"
+    x:Class="Citizen.Feature.Login.SimpleEmailEntry"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
     xmlns:control="clr-namespace:Citizen.Controls"
+    xmlns:styles="clr-namespace:Citizen.Styles"
+    xmlns:i18n="clr-namespace:Citizen.Extensions"
     xmlns:converter="clr-namespace:Citizen.Converters">
 
     <ContentView.Resources>
@@ -12,7 +14,7 @@
             <converter:StringToBooleanConverter x:Key="StringToBooleanConverter" />
             <converter:ErrorValidationColorConverter x:Key="ErrorValidationColorConverter" PageVariantParameter="1" />
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml" />
+                <styles:LoginStyles />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ContentView.Resources>
@@ -31,7 +33,7 @@
 
                     <control:BorderlessEntry
                         x:Name="EmailEntry"
-                        Placeholder="Email" Keyboard="Email"
+                        Placeholder="{i18n:Translate Email}" Keyboard="Email"
                         PlaceholderColor="{DynamicResource Gray-700}"
                         Style="{StaticResource EntryStyle}"
                         Text="{Binding Email}"
@@ -57,7 +59,7 @@
                 Margin="15,-5,0,0"
                 FontSize="12"
                 IsVisible="{Binding Path=IsFocused, Source={x:Reference EmailEntry}, Converter={StaticResource StringToBooleanConverter}, ConverterParameter={x:Reference EmailEntry}}"
-                Text="Please enter the valid e-mail"
+                Text="{i18n:Translate PlaceHolderValidEmail}"
                 TextColor="{DynamicResource Red}"
                 VerticalOptions="FillAndExpand" />
 

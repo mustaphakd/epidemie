@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Citizen.Controls;
-using Citizen.ViewModels.Forms;
+using Citizen.Feature.Login.ViewModels;
 
 namespace Citizen.Converters
 {

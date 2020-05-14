@@ -4,6 +4,11 @@ using System.Text;
 
 namespace Citizen.Operations
 {
+    /// <summary>
+    /// To Set failure, passin error message when constructing the object.
+    /// Recipients should just make use of ISSucceess and ISError
+    /// </summary>
+    /// <typeparam name="TResult"></typeparam>
     public class OperationResult<TResult>
     {
         public OperationResult(TResult results, string errorMessage)

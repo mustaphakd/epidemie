@@ -6,16 +6,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Citizen.Services;
+using Xamarin.Forms;
 
 namespace Citizen.Feature.Landing
 {
     public class HomeViewModel: BaseViewModel
     {
-        //public const string LogInCompleted = nameof(LogInCompleted);
-        public const string LoggingPrefix = "Mobile.Feature.Landing.HomeViewModel::";
+        public const string LoggingPrefix = "Citizen.Feature.Landing.HomeViewModel::";
         private Object syncObj = new Object();
-
-
         private Boolean canExecute_;
         public Boolean CanExecute {
             get => this.canExecute_;
@@ -43,6 +42,17 @@ namespace Citizen.Feature.Landing
             LoggingService.Debug($"${LoggingPrefix}RenderedAsync() - Start");
             this.CanExecute = true;
             this.CanSettingsExecute = true;
+            var timer = new System.Threading.Timer(
+                async (arg1) => {
+                    LoggingService.Debug($"${LoggingPrefix}RenderedAsync() - Check if loged in.");
+                    //todo: if not logged in, goto:
+                    //await App.SetAsRoot(Core.Routes.PhysicalContacts);
+                    await App.SetAsRoot(Core.Routes.Login);
+                    //todo: else go to last view
+                }, 
+                null, 
+                6000, 
+                -1);
             LoggingService.Debug($"${LoggingPrefix}RenderedAsync() - End");
             return Task.CompletedTask;
         }

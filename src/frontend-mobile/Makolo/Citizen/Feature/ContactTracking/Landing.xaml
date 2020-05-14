@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<framework:BaseContentPage
+    x:Class="Citizen.Feature.ContactTracking.Landing"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:core="clr-namespace:Citizen.Core"
+    xmlns:extensions="clr-namespace:Citizen.Extensions"
+    xmlns:fontHelpers="clr-namespace:Citizen.Helpers"
+    xmlns:framework="clr-namespace:Citizen.Framework"
+    xmlns:i18n="clr-namespace:Citizen.Extensions"
+    xmlns:local="clr-namespace:Citizen.Feature.ContactTracking"
+    xmlns:picker="clr-namespace:Syncfusion.SfPicker.XForms;assembly=Syncfusion.SfPicker.XForms"
+    xmlns:styles="clr-namespace:Citizen.Styles" 
+    Title="{i18n:Translate ContactTracking}"
+    xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+    x:DataType="local:LandingViewModel"
+    x:TypeArguments="local:LandingViewModel"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:converter="clr-namespace:Citizen.Converters"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    Shell.FlyoutBehavior="Disabled"
+    NavigationPage.HasNavigationBar="False"
+    NavigationPage.HasBackButton="True"
+    Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BooleanToColorConverter x:Key="ColorConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <styles:LoginStyles />
+                <styles:PhysicalTrackingStyles />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <local:LandingViewModel />
+    </ContentPage.BindingContext>
+
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout HorizontalOptions="FillAndExpand" Spacing="0">
+
+
+                <picker:SfPicker x:Name="picker" HeaderText="Select Contact" PickerMode="Dialog" SelectionChanged="picker_SelectionChanged" />
+                <Grid
+                    Margin="0,16,0,0"
+                    BackgroundColor="{DynamicResource Gray-White}"
+                    ColumnSpacing="0"
+                    RowSpacing="0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                   <border:SfBorder Grid.Column="0"
+                                    CornerRadius="2"
+                                    Margin="2,0,2,0"
+                                    BackgroundColor="{DynamicResource Gray-White}"
+                                    BorderColor="{Binding Source={x:Reference pickerBtn}, Path=IsFocused, Converter={StaticResource ColorConverter}, ConverterParameter=3}"
+                                    Style="{StaticResource SfBorderStyle}">
+ 
+                        <buttons:SfButton x:Name="pickerBtn" 
+                                        Clicked="pickerBtn_Clicked"
+                                        TextColor="Gray"
+                                          HorizontalTextAlignment="Start"
+                                        Text="{i18n:Translate SelectContactType}"
+                                        BackgroundColor="Transparent" 
+                                        CornerRadius="1" ShowIcon="true" >
+                           
+                            <buttons:SfButton.ImageSource>
+                                <FontImageSource
+                                    FontFamily="{DynamicResource MaterialFontFamily}"
+                                    
+                                    Glyph="{x:Static fontHelpers:MaterialIconFont.Contacts}"
+                                    Size="25"
+                                    Color="#EA5450" />
+                            </buttons:SfButton.ImageSource> 
+
+                        </buttons:SfButton>
+
+                    </border:SfBorder>
+
+                    <buttons:SfButton x:Name="addBtn"  Grid.Column="2" Margin="0,0,3,0"
+                        Clicked="Add_Clicked"
+                        TextColor="Green" 
+                        BackgroundColor="#EA5450" 
+                        CornerRadius="1" ShowIcon="true" >
+                        <buttons:SfButton.ImageSource>
+                            <FontImageSource
+                                    FontFamily="{DynamicResource MaterialFontFamily}"                                                    
+                                    Glyph="{x:Static fontHelpers:MaterialIconFont.Plus}"
+                                    Size="25"
+                                    Color="Green" />
+                        </buttons:SfButton.ImageSource>
+
+                    </buttons:SfButton>
+
+                </Grid>
+                
+                <progressBar:SfStepProgressBar
+                    x:Name="stepProgress"
+                    Margin="5,20,0,0"
+                    BackgroundColor="{StaticResource Gray-White}"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Vertical"
+                    TitleAlignment="Start">
+
+
+                    <!--  Style for step progress inprogress  -->
+                    <progressBar:SfStepProgressBar.NotStartedStepStyle>
+                        <progressBar:StepStyle
+                            x:TypeArguments="progressBar:NotStartedStepState"
+                            MarkerFillColor="{StaticResource PrimaryColor}"
+                            MarkerContentFillColor="{StaticResource Gray-White}"
+                            MarkerShapeType="Circle"
+                            MarkerContentSize="10"
+                            MarkerStrokeWidth="1"
+                            MarkerStrokeColor="{StaticResource Gray-White}"
+                            ProgressLineColor="{StaticResource PrimaryColor}" />
+                    </progressBar:SfStepProgressBar.NotStartedStepStyle>
+                    
+                    <!--  Style for step progress not started  
+                    <progressBar:SfStepProgressBar.NotStartedStepStyle>
+                        <progressBar:StepStyle
+                            x:TypeArguments="progressBar:NotStartedStepState"
+                            MarkerContentSize="12"
+                            MarkerShapeType="Circle" />
+                    </progressBar:SfStepProgressBar.NotStartedStepStyle>-->
+
+                    <!--  Style for step progress inprogress  -->
+                    <progressBar:SfStepProgressBar.InProgressStepStyle>
+                        <progressBar:StepStyle
+                            x:TypeArguments="progressBar:InProgressStepState"
+                            MarkerFillColor="{StaticResource PrimaryColor}"
+                            MarkerShapeType="Circle"
+                            MarkerContentSize="12"
+                            MarkerStrokeColor="{StaticResource PrimaryDarkColor}"
+                            ProgressLineColor="{StaticResource PrimaryColor}" />
+                    </progressBar:SfStepProgressBar.InProgressStepStyle>
+
+                    <!--  Style for step progress completed  -->
+                    <progressBar:SfStepProgressBar.CompletedStepStyle>
+                        <progressBar:StepStyle
+                            x:TypeArguments="progressBar:CompletedStepState"
+                            MarkerContentFillColor="{StaticResource Gray-White}"
+                            MarkerContentType="Tick"
+                            MarkerFillColor="{StaticResource PrimaryColor}"
+                            MarkerShapeType="Circle"
+                            MarkerStrokeColor="{StaticResource PrimaryDarkColor}" />
+                    </progressBar:SfStepProgressBar.CompletedStepStyle>
+                </progressBar:SfStepProgressBar>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</framework:BaseContentPage>

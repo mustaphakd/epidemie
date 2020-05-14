@@ -1,6 +1,7 @@
-﻿using Xamarin.Forms.Internals;
+﻿using Citizen.Framework;
+using Xamarin.Forms.Internals;
 
-namespace Citizen.ViewModels.Forms
+namespace Citizen.Feature.Login.ViewModels
 {
     /// <summary>
     /// ViewModel for login page.
@@ -36,7 +37,7 @@ namespace Citizen.ViewModels.Forms
                 }
 
                 this.email = value;
-                this.NotifyPropertyChanged();
+                this.RaisePropertyChanged();
             }
         }
 
@@ -58,7 +59,7 @@ namespace Citizen.ViewModels.Forms
                 }
 
                 this.isInvalidEmail = value;
-                this.NotifyPropertyChanged();
+                this.RaisePropertyChanged();
             }
         }
 

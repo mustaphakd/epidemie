@@ -13,7 +13,7 @@ namespace Citizen.Extensions
     [ContentProperty("Text")]
     class TranslateExtension : IMarkupExtension
     {
-        const string ResourceId = "Mobile.Resources.AppResources";
+        const string ResourceId = "Citizen.Resources.AppResources";
 
         static readonly Lazy<ResourceManager> resmgr = new Lazy<ResourceManager>(() => new ResourceManager(ResourceId, typeof(TranslateExtension).GetTypeInfo().Assembly));
 

@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Citizen.Feature.Home.Landing"
+             xmlns:control="clr-namespace:Citizen.Controls"
+             xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+             xmlns:local="clr-namespace:Citizen.Feature.Login"
+             xmlns:viewModel="clr-namespace:Citizen.Feature.Home"
+             xmlns:converter="clr-namespace:Citizen.Converters"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:i18n="clr-namespace:Citizen.Extensions" 
+             xmlns:styles="clr-namespace:Citizen.Styles"
+             xmlns:fonts="clr-namespace:Citizen.Helpers"
+             xmlns:extensions="clr-namespace:Citizen.Extensions"
+             Title="{i18n:Translate Home}"
+             BackgroundColor="White"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BooleanToColorConverter x:Key="ColorConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <styles:LoginStyles />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView Padding="1,3">
+            <ScrollView.HorizontalOptions>
+                <OnIdiom
+                    x:TypeArguments="LayoutOptions"
+                    Default="Center"
+                    Phone="FillAndExpand" />
+            </ScrollView.HorizontalOptions>
+            <ScrollView.VerticalOptions>
+                <OnIdiom
+                    x:TypeArguments="LayoutOptions"
+                    Default="CenterAndExpand"
+                    Phone="FillAndExpand" />
+            </ScrollView.VerticalOptions>
+            <StackLayout WidthRequest="{OnIdiom Phone='-1', Default='550'}">
+                <StackLayout.BindingContext>
+                    <viewModel:LandingViewModel/>
+                </StackLayout.BindingContext>
+                
+                <control:CustomShadowFrame Margin="14,8" Padding="0">
+                </control:CustomShadowFrame>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0, 10">
+                    <Image HorizontalOptions="Start" Source="{extensions:ImageResource Citizen.Images.makoloLogo.png}" />
+                    <Image HorizontalOptions="EndAndExpand"  Source="{extensions:ImageResource Citizen.Images.Notification.png}" />
+                </StackLayout>
+
+                <Label Text="YourName" />
+
+                <border:SfBorder HeightRequest="123" CornerRadius="5" BackgroundColor="#EA5450" BorderWidth="0" Margin="0,0,0,5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+
+                        <ImageButton Margin="5,5,0,0"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="CenterAndExpand" >
+                            <ImageButton.Source>
+                                <FontImageSource
+                                        FontFamily="{DynamicResource MaterialFontFamily}"
+                                        Glyph="{x:Static fonts:MaterialIconFont.AccountCircle}"
+                                        Size="44"
+                                        Color="White" />
+                            </ImageButton.Source>
+                        </ImageButton>
+                    </Grid>    
+                </border:SfBorder>
+                
+                <Label Text="{i18n:Translate QuickTopUp}" />
+
+                <border:SfBorder Padding="6,1,6,1" CornerRadius="15" HorizontalOptions="FillAndExpand" HeightRequest="36" BorderColor="#F1F1F1" BackgroundColor="#F1F1F1" Margin="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                        <buttons:SfButton BackgroundColor="White" CornerRadius="15" ShowIcon="true" ImageAlignment="Left" >
+                            <buttons:SfButton.ImageSource>
+                                <FontImageSource
+                                        FontFamily="{DynamicResource MaterialFontFamily}"
+                                        Glyph="{x:Static fonts:MaterialIconFont.Hail}"
+                                        Size="44"
+                                        Color="#EA5450" />
+                            </buttons:SfButton.ImageSource>
+                        </buttons:SfButton>
+                        <buttons:SfButton BackgroundColor="White" CornerRadius="15" ShowIcon="true" Grid.Column="1" >
+                            <buttons:SfButton.ImageSource>
+                                <FontImageSource
+                                        FontFamily="{DynamicResource MaterialFontFamily}"
+                                        Glyph="{x:Static fonts:MaterialIconFont.BankTransfer}"
+                                        Size="44"
+                                        Color="#EA5450" />
+                            </buttons:SfButton.ImageSource>
+                        </buttons:SfButton>
+                        <buttons:SfButton BackgroundColor="White" CornerRadius="15" ShowIcon="true" Grid.Column="2" >
+                            <buttons:SfButton.ImageSource>
+                                <FontImageSource
+                                        FontFamily="{DynamicResource MaterialFontFamily}"
+                                        Glyph="{x:Static fonts:MaterialIconFont.CardBulletedOffOutline}"
+                                        Size="44"
+                                        Color="#EA5450" />
+                            </buttons:SfButton.ImageSource>
+                        </buttons:SfButton>
+
+                        </Grid>
+                </border:SfBorder>
+
+                <Label Text="{i18n:Translate HomeExplore}" Margin="0,20, 0, 5 " />
+                <Grid HeightRequest="2" >
+                    <BoxView BackgroundColor="#F1F1F1" />
+                </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                <!--  //////////////////////// Top Left -->
+                    <buttons:SfButton 
+                        Grid.Column="0" 
+                        HeightRequest="100"
+                        WidthRequest="150" 
+                        Text="{i18n:Translate Menu_largeButtons_Map}"
+                        TextColor="#EA5450"
+                        BorderColor="#EA5450" 
+                        BorderWidth="1" 
+                        Grid.Row="0" 
+                        BackgroundColor="White" 
+                        CornerRadius="5,5,5,0" 
+                        ShowIcon="true" >
+                        <buttons:SfButton.ImageSource>
+                            <FontImageSource
+                                        FontFamily="{DynamicResource MaterialFontFamily}"
+                                        Glyph="{x:Static fonts:MaterialIconFont.GoogleMaps}"
+                                        Size="44"
+                                        Color="#EA5450" />
+                        </buttons:SfButton.ImageSource>
+                    </buttons:SfButton>
+                    <!--  //////////////////////// Top Right -->
+                    <buttons:SfButton 
+                        Grid.Column="1" 
+                        HeightRequest="100"
+                        Text="{i18n:Translate Menu_largeButtons_ContactTracking}"
+                        TextColor="#6A62B5"
+                        WidthRequest="150" 
+                        Clicked="ContactTracking_Clicked"
+                        BorderColor="#6A62B5" 
+                        BorderWidth="1" 
+                        Grid.Row="0" 
+                        BackgroundColor="White" 
+                        CornerRadius="5,5,5,0" 
+                        ShowIcon="true" >
+                        <buttons:SfButton.ImageSource>
+                            <FontImageSource
+                                        FontFamily="{DynamicResource MaterialFontFamily}"
+                                        Glyph="{x:Static fonts:MaterialIconFont.NearMe}"
+                                        Size="44"
+                                        Color="#6A62B5" />
+                        </buttons:SfButton.ImageSource>
+                    </buttons:SfButton>
+
+                    <!--  //////////////////////// Bottom Left -->
+                    <buttons:SfButton 
+                        Grid.Column="0" 
+                        HeightRequest="100"
+                        WidthRequest="150" 
+                        Text="{i18n:Translate Menu_largeButtons_Cowrie}"
+                        TextColor="#D0D47D"
+                        BorderColor="#D0D47D" 
+                        BorderWidth="1" 
+                        Grid.Row="1" 
+                        BackgroundColor="White" 
+                        CornerRadius="5,5,5,0" 
+                        ShowIcon="true" >
+                        <buttons:SfButton.ImageSource>
+                            <FontImageSource
+                                        FontFamily="{DynamicResource MaterialFontFamily}"
+                                        Glyph="{x:Static fonts:MaterialIconFont.CashMultiple}"
+                                        Size="44"
+                                        Color="#D0D47D" />
+                        </buttons:SfButton.ImageSource>
+                    </buttons:SfButton>
+                    <!--  //////////////////////// Bottom Right -->
+                    <buttons:SfButton 
+                        Grid.Column="1" 
+                        HeightRequest="100"
+                        WidthRequest="150" 
+                        BorderColor="#A6A6A6" 
+                        BorderWidth="1" 
+                        Grid.Row="1" 
+                        BackgroundColor="White" 
+                        CornerRadius="5,5,5,0" 
+                        ShowIcon="true" >
+                        <buttons:SfButton.ImageSource>
+                            <FontImageSource
+                                        FontFamily="{DynamicResource MaterialFontFamily}"
+                                        Glyph="{x:Static fonts:MaterialIconFont.TreasureChest}"
+                                        Size="44"
+                                        Color="#A6A6A6" />
+                        </buttons:SfButton.ImageSource>
+                    </buttons:SfButton>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

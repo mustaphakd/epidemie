@@ -1,8 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using Citizen.Extensions;
+using Citizen.Services;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
-namespace Citizen.ViewModels.Forms
+namespace Citizen.Feature.Login.ViewModels
 {
     /// <summary>
     /// ViewModel for login page.
@@ -13,6 +16,7 @@ namespace Citizen.ViewModels.Forms
         #region Fields
 
         private string password;
+        private IAuthenticationService authService;
 
         #endregion
 
@@ -24,9 +28,8 @@ namespace Citizen.ViewModels.Forms
         public LoginPageViewModel()
         {
             this.LoginCommand = new Command(this.LoginClicked);
-            this.SignUpCommand = new Command(this.SignUpClicked);
             this.ForgotPasswordCommand = new Command(this.ForgotPasswordClicked);
-            this.SocialMediaLoginCommand = new Command(this.SocialLoggedIn);
+            this.authService = DependencyService.Get<IAuthenticationService>();
         }
 
         #endregion
@@ -51,7 +54,7 @@ namespace Citizen.ViewModels.Forms
                 }
 
                 this.password = value;
-                this.NotifyPropertyChanged();
+                this.RaisePropertyChanged();
             }
         }
 
@@ -85,20 +88,29 @@ namespace Citizen.ViewModels.Forms
 
         /// <summary>
         /// Invoked when the Log In button is clicked.
+        /// https://docs.microsoft.com/en-us/xamarin/essentials/geolocation?tabs=android
         /// </summary>
         /// <param name="obj">The Object</param>
-        private void LoginClicked(object obj)
+        private async void LoginClicked(object obj)
         {
-            // Do something
-        }
+            var location = await Geolocation.GetLastKnownLocationAsync();
+            var outcome = await authService.LoginAsync(new Backend.DataTransferObjects.UserLogin { Email = this.Email, Password = this.Password, Latitude = location?.Latitude.ToString(), Longitude = location?.Longitude.ToString() });
 
-        /// <summary>
-        /// Invoked when the Sign Up button is clicked.
-        /// </summary>
-        /// <param name="obj">The Object</param>
-        private void SignUpClicked(object obj)
-        {
-            // Do something
+            if (outcome.IsSuccess == false)
+            {
+                var translationKey = "LoginFailure";
+                var translator = new TranslateExtension { Text = translationKey };
+                var message = translator.ProvideValue(null).ToString();
+
+                //App.DisplayMessage(message);
+                //return;
+            }
+
+            ////todo
+            //await App.SetAsRoot(Core.Routes.HomeMenu); //.ConfigureAwait(false);
+            await App.ReplaceRootContent(Core.Routes.HomeMenu);
+            
+                //await App.AppendToSection(Core.Routes.HomeMenu);
         }
 
         /// <summary>
@@ -113,14 +125,6 @@ namespace Citizen.ViewModels.Forms
             label.BackgroundColor = Color.Transparent;
         }
 
-        /// <summary>
-        /// Invoked when social media login button is clicked.
-        /// </summary>
-        /// <param name="obj">The Object</param>
-        private void SocialLoggedIn(object obj)
-        {
-            // Do something
-        }
 
         #endregion
     }

@@ -7,6 +7,12 @@
   <ItemGroup>
     <None Remove="Data\deliverytracking.json" />
     <None Remove="Data\notification.json" />
+    <None Remove="Images\Donate.png" />
+    <None Remove="Images\Humannnn.png" />
+    <None Remove="Images\makolo.png" />
+    <None Remove="Images\makoloLogo.png" />
+    <None Remove="Images\map.png" />
+    <None Remove="Images\Notification.png" />
     <None Remove="Images\PaymentFailed.svg" />
   </ItemGroup>
 
@@ -20,11 +26,19 @@
   <ItemGroup>
     <EmbeddedResource Include="Data\deliverytracking.json" />
     <EmbeddedResource Include="Data\notification.json" />
+    <EmbeddedResource Include="Images\Donate.png" />
+    <EmbeddedResource Include="Images\Humannnn.png" />
+    <EmbeddedResource Include="Images\makolo.png" />
+    <EmbeddedResource Include="Images\makoloLogo.png" />
+    <EmbeddedResource Include="Images\map.png" />
+    <EmbeddedResource Include="Images\Notification.png" />
     <EmbeddedResource Include="Images\PaymentFailed.svg" />
   </ItemGroup>
 
 <ItemGroup>
 <PackageReference Include="CSharp.OperationResult" Version="0.1.6" />
+<PackageReference Include="GraphQL.Client" Version="3.1.0" />
+ <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="3.1.0" />
 <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.3" />
 <PackageReference Include="Plugin.Multilingual" Version="1.0.2" />
 <PackageReference Include="Refit.Insane.PowerPack" Version="1.1.1" />
@@ -139,14 +153,50 @@
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
       <DependentUpon>*.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Feature\Login\SimpleEmailEntry.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Styles\LoginStyles.xaml.cs">
+      <DependentUpon>LoginStyles.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\Login\Landing.xaml.cs">
+      <DependentUpon>Landing.xaml</DependentUpon>
+    </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="MainPage.xaml.cs">
       <DependentUpon>*.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\AppResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Styles\PhysicalTrackingStyles.xaml.cs">
+      <DependentUpon>PhysicalTrackingStyles.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Feature\ContactTracking\Landing.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Feature\Home\Landing.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Feature\Login\SimpleEmailEntry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Styles\LoginStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Feature\Login\Landing.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\AppResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Styles\PhysicalTrackingStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Themes\LightTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -155,15 +205,6 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ErrorandEmpty\Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Forms\SimpleEmailEntry.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Forms\Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Forms\TabbedForm.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Notification\Styles.xaml">
@@ -178,17 +219,5 @@
     <EmbeddedResource Update="Views\Settings\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Tracking\ProductDeliveryTrackingPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Tracking\Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Feature\" />
-    <Folder Include="Services\Dto\" />
-    <Folder Include="Services\Impl\" />
   </ItemGroup>
 </Project>
