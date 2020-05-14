@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Services.DependencyInjection;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,10 +29,7 @@ namespace Backend.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            /*
-                        this.loggerFactory = new LoggerFactory();
-                        services.AddSingleton<ILoggerFactory>((srvProvider) => this.loggerFactory);
-                        services.AddLogging();*/
+
             /*
             services.AddCors(options =>
             {
@@ -44,9 +42,7 @@ namespace Backend.Web
                 });
             });*/
             services.AddBackendServices(Configuration);
-            //services.AddControllers();
-            //services.AddControllersWithViews();
-            // After launching app, you can navigate to xxxx to view backend api accessing to mobile and front ends
+
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo{ Title = "Mokolo Feed Api", Version = "V1" });
             });
@@ -70,15 +66,9 @@ namespace Backend.Web
                 app.UseHsts();
             }
 
-            /**
-             * services.AddSingleton<IMyService>((container) =>
-    {
-        var logger = container.GetRequiredService<ILogger<MyService>>();
-        return new MyService() { Logger = logger };
-    });
-            */
             //skipping Csp
 
+            //app.UseHttpsRedirection();
             // cors
             app.UseCors();
 
@@ -94,8 +84,7 @@ namespace Backend.Web
 
             app.ConfigureBackendServices(env);
 
-            //app.UseHttpsRedirection();
-            app.UseDefaultFiles();
+            app.UseDefaultFiles(); // easy access to index.html
             app.UseStaticFiles();
             app.UseSpaStaticFiles(
                 new StaticFileOptions(
@@ -103,27 +92,22 @@ namespace Backend.Web
                     {
                         FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/dist"))
                     }));
-           // app.UseCookiePolicy();
+
             //https://github.com/aspnet/Security/issues/1310
-           // app.UseAuthentication();
-            //app.UseMvcWithDefaultRoute();
-
-
-            app.UseHttpsRedirection();
-
             app.UseRouting();
-
-            //app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                /*
-                  endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                 */
+                //https://stackoverflow.com/questions/59387914/allow-anonymouos-access-to-healthcheck-endpoint-when-authentication-fallback-pol
+                //https://github.com/ChilliCream/hotchocolate/issues/1189
+                //endpoints.MapHealthChecks("/graphql").WithMetadata(new AllowAnonymousAttribute());
             });
+
+
+            app.ConfigurRemainingeBackendServices(env);
 
             logger.LogInformation("Configuration complete");
         }

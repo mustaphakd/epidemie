@@ -22,10 +22,9 @@ namespace Backend.Services.Features.Security
     {
         private SecurityRepository securityRepository_;
         private SignInHandler signInHandler_;
-        private IHttpContextAccessor httpContextAccessor_;
 
         public SecurityService(SecurityRepository securityRepository, SignInHandler signInHandler, IHttpContextAccessor httpContextAccessor, ILogger<SecurityService> logger)
-            : base(logger)
+            : base(httpContextAccessor, logger)
         {
             Check.CallerLog<SecurityService>(Logger, LoggerExecutionPositions.Entrance, $"securityRepository model: {securityRepository}");
             Check.NotNull(securityRepository, nameof(securityRepository));
@@ -34,7 +33,6 @@ namespace Backend.Services.Features.Security
 
             securityRepository_ = securityRepository;
             signInHandler_ = signInHandler;
-            httpContextAccessor_ = httpContextAccessor;
             Check.CallerLog<SecurityService>(Logger, LoggerExecutionPositions.Exit);
         }
 
@@ -72,7 +70,7 @@ namespace Backend.Services.Features.Security
             }
 
             await signInHandler_.LoginAsync(user, true, JwtBearerDefaults.AuthenticationScheme);
-            var authoToken = httpContextAccessor_.HttpContext.Items[Constant.AuthTokenKey];
+            var authoToken = HttpContextAccessor.HttpContext.Items[Constant.AuthTokenKey];
 
             //prevent use of session storage
             ClearSession();
@@ -100,7 +98,7 @@ namespace Backend.Services.Features.Security
         private void ClearSession()
         {
             Check.CallerLog<SecurityService>(Logger, LoggerExecutionPositions.Entrance, $"ClearSession ");
-            var context = httpContextAccessor_.HttpContext;
+            var context = HttpContextAccessor.HttpContext;
 
             foreach (var cookie in context.Request.Cookies.Keys)
             {
